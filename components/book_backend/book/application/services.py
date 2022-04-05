@@ -18,6 +18,7 @@ class BookInfo(DTO):
     published_year: int
     title: str
     id: Optional[int]
+    status: Optional[str]
 
 @component
 class Books:
@@ -50,5 +51,11 @@ class Books:
         books = self.book_repo.get_all()
         return books
 
-
+    @join_point
+    @validate_arguments
+    def change_book_status(self, id: int):
+        book = self.book_repo.get_by_id(id)
+        if not book:
+            raise errors.NoBook(id=id)
+        self.book_repo.change_status(id)
 

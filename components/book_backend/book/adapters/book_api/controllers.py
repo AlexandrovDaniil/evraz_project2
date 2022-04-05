@@ -15,7 +15,8 @@ class Books:
             'id': book.id,
             'title': book.title,
             'author': book.author,
-            'published_year': book.published_year
+            'published_year': book.published_year,
+            'status': book.status
 
         }
 
@@ -33,3 +34,8 @@ class Books:
     def on_get_delete_book(self, request, response):
         self.books.delete_book(**request.params)
         response.media = {'status': 'book deleted'}
+
+    @join_point
+    def on_get_change_status(self, request, response):
+        self.books.change_book_status(**request.params)
+        response.media = {'status': 'status changed'}

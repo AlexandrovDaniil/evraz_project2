@@ -18,4 +18,5 @@ BOOK = Table(
     Column('author', String, nullable=True),
     Column('published_year', String, nullable=True),
     Column('title', String, nullable=True),
+    Column('status', String, nullable=True),
 )

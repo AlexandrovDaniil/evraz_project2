@@ -18,3 +18,7 @@ class BooksRepo(ABC):
     @abstractmethod
     def delete_instance(self, id_: int): ...
 
+    @abstractmethod
+    def change_status(self, id_: int): ...
+
+
