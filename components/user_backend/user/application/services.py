@@ -1,10 +1,12 @@
 from typing import Optional, List
 
 import jwt
+from attr import asdict
 from classic.app import DTO, validate_with_dto
 from classic.aspects import PointCut
 from classic.components import component
 from pydantic import validate_arguments
+from classic.messaging import Message, Publisher
 
 from . import errors, interfaces
 from .dataclasses import User
@@ -21,11 +23,16 @@ class UserInfo(DTO):
 @component
 class Users:
     user_repo: interfaces.UsersRepo
+    publisher: Optional[Publisher] = None
 
     @join_point
     @validate_arguments
     def get_info(self, id: int):
         user = self.user_repo.get_by_id(id)
+        # if self.publisher:
+        #     self.publisher.plan(
+        #         Message('OrderPlaced', 'text msg')
+        #     )
         if not user:
             raise errors.NoUser(id=id)
         return user
@@ -34,7 +41,14 @@ class Users:
     @validate_with_dto
     def add_user(self, user_info: UserInfo):
         new_user = user_info.create_obj(User)
-        self.user_repo.add_instance(new_user)
+        new_user = self.user_repo.add_instance(new_user)
+        if self.publisher:
+            self.publisher.plan(
+                Message('UserExchange',
+                        {'obj_type': 'user',
+                         'action': 'create',
+                         'data': new_user})
+            )
 
     @join_point
     @validate_arguments
@@ -43,6 +57,13 @@ class Users:
         if not user:
             raise errors.NoUser(id=id)
         self.user_repo.delete_instance(id)
+        if self.publisher:
+            self.publisher.plan(
+                Message('UserExchange',
+                        {'from': 'user',
+                         'action': 'delete',
+                         'data': {'id': id}})
+            )
 
     @join_point
     def get_all(self) -> List[User]:

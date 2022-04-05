@@ -5,7 +5,7 @@ from user.application.dataclasses import User
 from .tables import USER
 from classic.components import component
 from classic.sql_storage import BaseRepository
-from sqlalchemy import delete, select, insert
+from sqlalchemy import delete, select, insert, func
 
 
 @component
@@ -20,6 +20,9 @@ class UsersRepo(BaseRepository, interfaces.UsersRepo):
     def add_instance(self, user: User):
         query = USER.insert().values(user_name=user.user_name)
         self.session.execute(query)
+        query = select(USER)
+        new_user = self.session.execute(query).fetchall()
+        return {'id': new_user[-1][0], 'name': new_user[-1][1]}
 
     def get_all(self) -> List[User]:
         query = select(USER)

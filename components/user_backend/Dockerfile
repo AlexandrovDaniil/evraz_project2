@@ -6,6 +6,9 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 RUN pip install gunicorn
+RUN pip install kombu
+RUN pip install amqp
+
 RUN pip install psycopg2-binary==2.9.2
 
 COPY ./setup.cfg .
