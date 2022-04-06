@@ -1,6 +1,5 @@
 from typing import Optional, List
 
-
 from classic.app import DTO, validate_with_dto
 from classic.aspects import PointCut
 from classic.components import component
@@ -20,6 +19,7 @@ class BookInfo(DTO):
     title: str
     id: Optional[int]
     user_id: Optional[int]
+
 
 @component
 class Books:
@@ -41,7 +41,7 @@ class Books:
         new_book = self.book_repo.add_instance(new_book)
         if self.publisher:
             self.publisher.plan(
-                Message('UserExchange',
+                Message('ApiExchange',
                         {'obj_type': 'book',
                          'action': 'create',
                          'data': new_book})
@@ -56,7 +56,7 @@ class Books:
         self.book_repo.delete_instance(id)
         if self.publisher:
             self.publisher.plan(
-                Message('UserExchange',
+                Message('ApiExchange',
                         {'obj_type': 'book',
                          'action': 'delete',
                          'data': {'id_book': id}})
@@ -66,7 +66,6 @@ class Books:
     def get_all(self) -> List[Book]:
         books = self.book_repo.get_all()
         return books
-
 
     @join_point
     @validate_arguments
@@ -78,7 +77,7 @@ class Books:
             self.book_repo.return_book(book_id)
             if self.publisher:
                 self.publisher.plan(
-                    Message('UserExchange',
+                    Message('ApiExchange',
                             {'obj_type': 'user_book',
                              'action': 'return',
                              'data': {'id_book': book_id,
@@ -97,7 +96,7 @@ class Books:
             self.book_repo.take_book(book_id=book_id, user_id=user_id)
             if self.publisher:
                 self.publisher.plan(
-                    Message('UserExchange',
+                    Message('ApiExchange',
                             {'obj_type': 'user_book',
                              'action': 'take',
                              'data': {'id_book': book_id,

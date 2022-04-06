@@ -15,7 +15,7 @@ def create_consumer(
 
     consumer.register_function(
         issue.message_distributor,
-        'UserQueue',
+        'ApiQueue',
     )
 
     return consumer

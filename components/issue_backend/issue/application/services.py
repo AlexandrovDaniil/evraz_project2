@@ -1,12 +1,9 @@
 from typing import Optional, List
 
-import jwt
-from attr import asdict
-from classic.app import DTO, validate_with_dto
+from classic.app import DTO
 from classic.aspects import PointCut
 from classic.components import component
 from pydantic import validate_arguments
-from classic.messaging import Message, Publisher
 
 from . import errors, interfaces
 from .dataclasses import Action
@@ -26,7 +23,6 @@ class ActionInfo(DTO):
 @component
 class Issues:
     issue_repo: interfaces.IssuesRepo
-    publisher: Optional[Publisher] = None
 
     @join_point
     @validate_arguments
@@ -36,29 +32,22 @@ class Issues:
                 obj_type=obj_type,
                 id_user=data['id_user'],
                 action=action)
-            print(action)
-            print('IM HERE USER IM HERE USER IM HERE USER')
             self.issue_repo.add_action_user(action)
-
-        if obj_type == 'book':
+        elif obj_type == 'book':
             action = Action(
                 obj_type=obj_type,
                 id_book=data['id_book'],
                 action=action)
-            print(action)
-            print('IM HERE IM HERE IM HERE IM HERE IM HERE IM HERE')
             self.issue_repo.add_action_book(action)
-
-        if obj_type == 'user_book':
+        elif obj_type == 'user_book':
             action = Action(
                 obj_type=obj_type,
                 id_book=data['id_book'],
                 id_user=data['id_user'],
                 action=action)
-            print(action)
-            print('IM HERE IM HERE IM HERE IM HERE IM HERE IM HERE')
             self.issue_repo.add_action(action)
-
+        else:
+            raise errors.WrongObjType(obj_type=obj_type)
 
     @join_point
     def get_all(self) -> List[Action]:

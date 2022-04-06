@@ -1,7 +1,5 @@
 from typing import Optional, List
 
-import jwt
-from attr import asdict
 from classic.app import DTO, validate_with_dto
 from classic.aspects import PointCut
 from classic.components import component
@@ -40,7 +38,7 @@ class Users:
         new_user = self.user_repo.add_instance(new_user)
         if self.publisher:
             self.publisher.plan(
-                Message('UserExchange',
+                Message('ApiExchange',
                         {'obj_type': 'user',
                          'action': 'create',
                          'data': new_user})
@@ -55,7 +53,7 @@ class Users:
         self.user_repo.delete_instance(id)
         if self.publisher:
             self.publisher.plan(
-                Message('UserExchange',
+                Message('ApiExchange',
                         {'obj_type': 'user',
                          'action': 'delete',
                          'data': {'id_user': id}})

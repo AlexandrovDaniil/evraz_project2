@@ -1,13 +1,5 @@
 from typing import Optional
-
 import attr
-
-
-@attr.dataclass
-class ActionUser:
-    id_user: int
-    action: str
-    id: Optional[int] = None
 
 
 @attr.dataclass
