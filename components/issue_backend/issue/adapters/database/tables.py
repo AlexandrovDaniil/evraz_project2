@@ -12,15 +12,15 @@ naming_convention = {
 
 metadata = MetaData(naming_convention=naming_convention)
 
-# ACTION_USER = Table(
-#     'action_user',
-#     metadata,
-#     Column('id', Integer, primary_key=True, autoincrement=True),
-#     Column('user_id', Integer, nullable=True),
-#     Column('action', String, nullable=True),
-#     Column('date', String, nullable=True, default=str(datetime.utcnow())),
-#
-# )
+ACTION_USER = Table(
+    'action_user',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('id_user', Integer, nullable=True),
+    Column('action', String, nullable=True),
+    Column('date', String, nullable=True, default=str(datetime.utcnow())),
+
+)
 
 ACTION = Table(
     'action',
@@ -30,5 +30,14 @@ ACTION = Table(
     Column('id_user', Integer, nullable=True),
     Column('action', String, nullable=True),
     Column('obj_type', String, nullable=True),
+    Column('date', String, nullable=True, default=str(datetime.utcnow())),
+)
+
+ACTION_BOOK = Table(
+    'action_book',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('id_book', Integer, nullable=True),
+    Column('action', String, nullable=True),
     Column('date', String, nullable=True, default=str(datetime.utcnow())),
 )

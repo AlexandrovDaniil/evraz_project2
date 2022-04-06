@@ -11,11 +11,10 @@ from sqlalchemy import delete, select, insert, update
 @component
 class BooksRepo(BaseRepository, interfaces.BooksRepo):
     def get_by_id(self, book_id: int) -> Optional[Book]:
-        # print(user_id)
+
         query = select(BOOK).where(BOOK.c.id == book_id)
 
         result = self.session.execute(query).fetchone()
-        print(result)
         return result
 
     def add_instance(self, book: Book):
@@ -23,12 +22,18 @@ class BooksRepo(BaseRepository, interfaces.BooksRepo):
             author=book.author,
             published_year=book.published_year,
             title=book.title,
-            status='available'
+            user_id=None
         )
         self.session.execute(query)
+        # x = x.fetchone()
+        # print(x)
+        # print('HEREHERHEHREHRHERHEHREH')
+        query = select(BOOK)
+        new_book = self.session.execute(query).fetchall()
+        return {'id_book': new_book[-1][0], 'name': new_book[-1][3]}
 
     def get_all(self) -> List[Book]:
-        query = select(BOOK).where(BOOK.c.status == 'available')
+        query = select(BOOK).where(BOOK.c.user_id is None)
         return self.session.execute(query).fetchall()
 
     def delete_instance(self, book_id: int):
@@ -42,3 +47,12 @@ class BooksRepo(BaseRepository, interfaces.BooksRepo):
         else:
             query = update(BOOK).where(BOOK.c.id == book_id).values(status='available')
         return self.session.execute(query)
+
+    def return_book(self, book_id: int):
+        query = update(BOOK).where(BOOK.c.id == book_id).values(user_id=None)
+        return self.session.execute(query)
+
+    def take_book(self, book_id: int, user_id: int):
+        query = update(BOOK).where(BOOK.c.id == book_id).values(user_id=user_id)
+        return self.session.execute(query)
+

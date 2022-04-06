@@ -29,10 +29,6 @@ class Users:
     @validate_arguments
     def get_info(self, id: int):
         user = self.user_repo.get_by_id(id)
-        # if self.publisher:
-        #     self.publisher.plan(
-        #         Message('OrderPlaced', 'text msg')
-        #     )
         if not user:
             raise errors.NoUser(id=id)
         return user
@@ -60,9 +56,9 @@ class Users:
         if self.publisher:
             self.publisher.plan(
                 Message('UserExchange',
-                        {'from': 'user',
+                        {'obj_type': 'user',
                          'action': 'delete',
-                         'data': {'id': id}})
+                         'data': {'id_user': id}})
             )
 
     @join_point

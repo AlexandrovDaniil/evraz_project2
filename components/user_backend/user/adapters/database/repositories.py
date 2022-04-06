@@ -22,7 +22,7 @@ class UsersRepo(BaseRepository, interfaces.UsersRepo):
         self.session.execute(query)
         query = select(USER)
         new_user = self.session.execute(query).fetchall()
-        return {'id': new_user[-1][0], 'name': new_user[-1][1]}
+        return {'id_user': new_user[-1][0], 'name': new_user[-1][1]}
 
     def get_all(self) -> List[User]:
         query = select(USER)

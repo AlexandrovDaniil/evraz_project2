@@ -21,4 +21,10 @@ class BooksRepo(ABC):
     @abstractmethod
     def change_status(self, id_: int): ...
 
+    @abstractmethod
+    def return_book(self, book_id: int): ...
+
+    @abstractmethod
+    def take_book(self, book_id: int, user_id: int): ...
+
 

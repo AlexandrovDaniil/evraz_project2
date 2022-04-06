@@ -21,9 +21,6 @@ class DB:
     context = TransactionContext(bind=engine)
     Session = sessionmaker(bind=engine)
     users_repo = database.repositories.UsersRepo(context=context)
-    # chats_repo = database.repositories.ChatsRepo(context=context)
-    # chat_members_repo = database.repositories.ChatsMembersRepo(context=context)
-    # chat_messages_repo = database.repositories.ChatsMessagesRepo(context=context)
 
 
 class MessageBus:
@@ -35,7 +32,6 @@ class MessageBus:
         connection=connection,
         scheme=message_bus.broker_scheme,
     )
-
 
 
 class Application:

@@ -9,4 +9,4 @@ class Book:
     published_year: int
     title: str
     id: Optional[int] = None
-    status: Optional[str] = None
+    user_id: Optional[int] = None

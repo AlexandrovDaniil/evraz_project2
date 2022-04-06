@@ -14,12 +14,6 @@ from .dataclasses import Action
 join_points = PointCut()
 join_point = join_points.join_point
 
-#
-# class UserInfo(DTO):
-#     id_user: int
-#     action: str
-#     id: Optional[int]
-
 
 class ActionInfo(DTO):
     obj_type: str
@@ -37,29 +31,46 @@ class Issues:
     @join_point
     @validate_arguments
     def message_distributor(self, obj_type: str, action: str, data: dict):
-        action = Action(
-            obj_type=obj_type,
-            id_user=data['id'],
-            # id_book=data['id_book'],
-            action=action)
-        print(action)
+        if obj_type == 'user':
+            action = Action(
+                obj_type=obj_type,
+                id_user=data['id_user'],
+                action=action)
+            print(action)
+            print('IM HERE USER IM HERE USER IM HERE USER')
+            self.issue_repo.add_action_user(action)
 
-        # new_act = action.create_obj(action)
-        self.issue_repo.add_action(action)
+        if obj_type == 'book':
+            action = Action(
+                obj_type=obj_type,
+                id_book=data['id_book'],
+                action=action)
+            print(action)
+            print('IM HERE IM HERE IM HERE IM HERE IM HERE IM HERE')
+            self.issue_repo.add_action_book(action)
 
-    # @join_point
-    # @validate_with_dto
-    # def add_user_action(self, user_info: UserInfo):
-    #     new_act = user_info.create_obj(ActionUser)
-    #     self.issue_repo.add_user_action(new_act)
-    #
-    # @join_point
-    # @validate_with_dto
-    # def add_book_action(self, book_info: BookInfo):
-    #     new_act = book_info.create_obj(ActionBook)
-    #     self.issue_repo.add_book_action(new_act)
+        if obj_type == 'user_book':
+            action = Action(
+                obj_type=obj_type,
+                id_book=data['id_book'],
+                id_user=data['id_user'],
+                action=action)
+            print(action)
+            print('IM HERE IM HERE IM HERE IM HERE IM HERE IM HERE')
+            self.issue_repo.add_action(action)
+
 
     @join_point
     def get_all(self) -> List[Action]:
-        users = self.issue_repo.get_all()
-        return users
+        action = self.issue_repo.get_all()
+        return action
+
+    @join_point
+    def get_user_action(self) -> List[Action]:
+        user_act = self.issue_repo.get_user_action()
+        return user_act
+
+    @join_point
+    def get_book_action(self) -> List[Action]:
+        book_act = self.issue_repo.get_book_action()
+        return book_act
