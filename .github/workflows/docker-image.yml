@@ -24,4 +24,4 @@ jobs:
         
     - name: User tests
 #      run: docker-compose run user_backend /tests/unit/application/services/test_user.py
-      run: docker-compose run user_backend python -m pytest
+      run: docker-compose run user_backend python -m py.test -v
