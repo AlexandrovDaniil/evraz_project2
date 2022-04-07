@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, Table
+from sqlalchemy import Column, Integer, MetaData, String, Table
 
 naming_convention = {
     'ix': 'ix_%(column_0_label)s',

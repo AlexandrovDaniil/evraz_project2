@@ -30,7 +30,9 @@ class Users:
     @join_point
     def on_get_show_all(self, request, response):
         users = self.users.get_all()
-        response.media = {user[0]: user[1] for user in users}
+        response.media = [{'id': user.id,
+                          'name': user.user_name}
+                          for user in users]
 
     @join_point
     def on_get_delete_user(self, request, response):

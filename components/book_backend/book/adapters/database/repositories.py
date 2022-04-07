@@ -5,7 +5,7 @@ from book.application.dataclasses import Book
 from .tables import BOOK
 from classic.components import component
 from classic.sql_storage import BaseRepository
-from sqlalchemy import delete, select, insert, update
+from sqlalchemy import delete, select, insert, update, desc
 
 
 @component
@@ -24,9 +24,9 @@ class BooksRepo(BaseRepository, interfaces.BooksRepo):
             user_id=None
         )
         self.session.execute(query)
-        query = select(BOOK)
-        new_book = self.session.execute(query).fetchall()
-        return {'id_book': new_book[-1][0], 'name': new_book[-1][3]}
+        book = select(BOOK).order_by(desc(BOOK.c.id))
+        book = self.session.execute(book).fetchone()
+        return {'id_book': book.id, 'name': book.title}
 
     def get_all(self) -> List[Book]:
         query = select(BOOK)

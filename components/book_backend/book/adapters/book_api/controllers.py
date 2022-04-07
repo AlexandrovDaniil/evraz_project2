@@ -15,9 +15,7 @@ class Books:
             'id': book.id,
             'title': book.title,
             'author': book.author,
-            'published_year': book.published_year,
-            'user_id': book.user_id
-
+            'published year': book.published_year,
         }
 
     @join_point
@@ -28,7 +26,12 @@ class Books:
     @join_point
     def on_get_show_all(self, request, response):
         books = self.books.get_all()
-        response.media = {book[0]: book[3] for book in books}
+        response.media = [{
+            'book id': book.id,
+            'author': book.author,
+            'published year': book.published_year,
+            'title': book.title
+        } for book in books]
 
     @join_point
     def on_get_delete_book(self, request, response):

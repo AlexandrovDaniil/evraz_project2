@@ -1,4 +1,3 @@
-
 from sqlalchemy import Column, Integer, MetaData, String, Table
 
 naming_convention = {
