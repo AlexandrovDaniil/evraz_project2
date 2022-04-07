@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 import pytest
-from book_backend.book.application import dataclasses, interfaces
+from book.application import dataclasses, interfaces
 
 
 @pytest.fixture(scope='function')

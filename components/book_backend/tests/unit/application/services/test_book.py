@@ -1,7 +1,7 @@
 import pytest
 from attr import asdict
-from book_backend.book.application.services import Books
-from book_backend.book.application.errors import NotAvailable, WrongUser
+from book.application.services import Books
+from book.application.errors import NotAvailable, WrongUser
 from pydantic import ValidationError
 
 

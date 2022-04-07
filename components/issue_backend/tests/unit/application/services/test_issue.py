@@ -1,7 +1,7 @@
 import pytest
 from attr import asdict
-from issue_backend.issue.application.services import Issues
-from issue_backend.issue.application.errors import WrongObjType
+from issue.application.services import Issues
+from issue.application.errors import WrongObjType
 from pydantic import ValidationError
 
 

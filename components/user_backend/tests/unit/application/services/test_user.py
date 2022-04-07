@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 from attr import asdict
-from user_backend.user.application.services import Users
+from user.application.services import Users
 from pydantic import ValidationError
 
 

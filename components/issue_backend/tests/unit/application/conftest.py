@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
 import pytest
-from issue_backend.issue.application import dataclasses, interfaces
+from issue.application import dataclasses, interfaces
 
 
 @pytest.fixture(scope='function')
