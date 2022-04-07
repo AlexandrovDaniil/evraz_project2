@@ -17,9 +17,6 @@ jobs:
     - name: Build the Docker image
       run: docker-compose -f components/docker-compose.yml build 
       
-    - name: Install package
-      run: python setup.py install
-      
     - name: Install pytest
       run: |
         python -m pip install --upgrade pip
