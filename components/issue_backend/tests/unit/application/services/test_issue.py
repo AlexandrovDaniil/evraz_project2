@@ -16,7 +16,7 @@ data_action = {
     'id_book': 1,
     'id_user': 1,
     'id': 3,
-    'date':None
+    'date': None
 }
 
 data_action_user = {
@@ -25,7 +25,7 @@ data_action_user = {
     'id_user': 1,
     'id_book': None,
     'id': 1,
-    'date':None
+    'date': None
 }
 
 data_action_book = {
@@ -34,7 +34,7 @@ data_action_book = {
     'id_book': 1,
     'id_user': None,
     'id': 2,
-    'date':None
+    'date': None
 }
 
 
