@@ -16,7 +16,8 @@ data_action = {
     'id_book': 1,
     'id_user': 1,
     'id': 3,
-    'date': None
+    'date': None,
+    'book_title': 'test'
 }
 
 data_action_user = {
@@ -25,7 +26,8 @@ data_action_user = {
     'id_user': 1,
     'id_book': None,
     'id': 1,
-    'date': None
+    'date': None,
+    'book_title': None
 }
 
 data_action_book = {
@@ -34,7 +36,8 @@ data_action_book = {
     'id_book': 1,
     'id_user': None,
     'id': 2,
-    'date': None
+    'date': None,
+    'book_title': None
 }
 
 
@@ -56,6 +59,11 @@ def test_message_distributor_valid_error(service_issue):
 def test_get_all(service_issue):
     action = service_issue.get_all()
     assert asdict(action) == data_action
+
+
+def test_get_all_by_user(service_issue):
+    action = service_issue.get_all_by_user(1)
+    assert asdict(action) == data_action_user
 
 
 def test_get_user(service_issue):

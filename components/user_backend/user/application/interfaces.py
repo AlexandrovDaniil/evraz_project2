@@ -18,4 +18,5 @@ class UsersRepo(ABC):
     @abstractmethod
     def delete_instance(self, id_: int): ...
 
-
+    @abstractmethod
+    def get_by_login(self, login: str) -> Optional[User]: ...

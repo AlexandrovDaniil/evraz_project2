@@ -81,7 +81,10 @@ class Books:
                             {'obj_type': 'user_book',
                              'action': 'return',
                              'data': {'id_book': book_id,
-                                      'id_user': user_id}})
+                                      'id_user': user_id,
+                                      'book_title': book.title}
+
+                             })
                 )
         else:
             raise errors.WrongUser(book_id=book_id, user_id=user_id)
@@ -100,7 +103,9 @@ class Books:
                             {'obj_type': 'user_book',
                              'action': 'take',
                              'data': {'id_book': book_id,
-                                      'id_user': user_id}})
+                                      'id_user': user_id,
+                                      'book_title': book.title}
+                             })
                 )
         else:
             raise errors.NotAvailable(id=book_id)

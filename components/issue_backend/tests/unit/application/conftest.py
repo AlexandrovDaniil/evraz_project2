@@ -11,7 +11,8 @@ def action_user():
         obj_type='user',
         id_user=1,
         id=1,
-        date=None
+        date=None,
+        book_title=None
     )
 
 
@@ -22,7 +23,8 @@ def action_book():
         obj_type='book',
         id_book=1,
         id=2,
-        date=None
+        date=None,
+        book_title=None
     )
 
 
@@ -33,7 +35,9 @@ def action():
         obj_type='user_book',
         id_book=1,
         id_user=1,
-        id=3
+        id=3,
+        book_title='test'
+
     )
 
 
@@ -43,6 +47,7 @@ def issue_repo(action_user, action_book, action):
     issue_repo.add_action = Mock(return_value=action)
     issue_repo.add_action_user = Mock(return_value=action_user)
     issue_repo.get_all = Mock(return_value=action)
+    issue_repo.get_all_by_user = Mock(return_value=action_user)
     issue_repo.get_user_action = Mock(return_value=action_user)
     issue_repo.get_book_action = Mock(return_value=action_book)
     return issue_repo

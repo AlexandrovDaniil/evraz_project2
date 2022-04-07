@@ -15,6 +15,8 @@ join_point = join_points.join_point
 
 class UserInfo(DTO):
     user_name: str
+    login: str
+    password: str
     id: Optional[int]
 
 
@@ -41,8 +43,22 @@ class Users:
                 Message('ApiExchange',
                         {'obj_type': 'user',
                          'action': 'create',
-                         'data': new_user})
+                         'data': {'id_user': new_user.id,
+                                  'name': new_user.user_name}
+                         })
             )
+        return new_user
+
+    @join_point
+    @validate_arguments
+    def login_user(self, user_login: str, user_password: str):
+        user = self.user_repo.get_by_login(user_login)
+        if not user:
+            raise errors.NoUserLogin(login=user_login)
+        if user.password == user_password:
+            return user
+        else:
+            raise errors.WrongUserPassword()
 
     @join_point
     @validate_arguments

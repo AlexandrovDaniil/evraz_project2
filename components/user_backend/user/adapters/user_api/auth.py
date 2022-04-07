@@ -1,4 +1,5 @@
 from classic.http_auth import Group, Permission, strategies
+import jwt
 
 
 class Permissions:
@@ -6,14 +7,22 @@ class Permissions:
 
 
 class Groups:
-    ADMINS = Group('admins', permissions=(Permissions.FULL_CONTROL, ))
+    USERS = Group('User', permissions=(Permissions.FULL_CONTROL,))
 
 
-dummy_strategy = strategies.Dummy(
-    user_id=1,
-    login='dummy',
-    name='Admin dummy',
-    groups=(Groups.ADMINS.name, ),
+jwt_strategy = strategies.JWT(
+    secret_key='my_secret_jwt'
 )
 
-ALL_GROUPS = (Groups.ADMINS, )
+ALL_GROUPS = (Groups.USERS,)
+
+
+def generate_token(user) -> str:
+    token = jwt.encode({
+        'sub': user.id,
+        'login': user.login,
+        'name': user.user_name,
+        'group': 'User'
+
+    }, 'my_secret_jwt', algorithm='HS256')
+    return token

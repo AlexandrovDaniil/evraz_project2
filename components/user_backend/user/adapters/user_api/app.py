@@ -11,10 +11,8 @@ def create_app(
 ) -> App:
     app = App(prefix='/api')
     authenticator = Authenticator(app_groups=auth.ALL_GROUPS)
-    # if is_dev_mode:
-    #     authenticator.set_strategies(auth.jwt_strategy)
+    if is_dev_mode:
+        authenticator.set_strategies(auth.jwt_strategy)
 
     app.register(controllers.Users(authenticator=authenticator, users=users))
-    # app.register(controllers.Chats(authenticator=authenticator, chats=chats))
-
     return app

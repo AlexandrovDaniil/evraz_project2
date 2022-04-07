@@ -7,7 +7,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from kombu import Connection
-from classic.messaging_kombu import KombuPublisher
 
 
 class Settings:

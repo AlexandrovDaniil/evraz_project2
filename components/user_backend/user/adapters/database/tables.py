@@ -1,4 +1,3 @@
-from datetime import datetime
 
 from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, Table
 
@@ -16,5 +15,7 @@ USER = Table(
     'user',
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('user_name', String, nullable=True),
+    Column('user_name', String),
+    Column('login', String),
+    Column('password', String)
 )

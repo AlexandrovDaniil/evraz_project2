@@ -29,6 +29,7 @@ ACTION = Table(
     Column('id_book', Integer, nullable=True),
     Column('id_user', Integer, nullable=True),
     Column('action', String, nullable=True),
+    Column('book_title', String, nullable=True),
     Column('obj_type', String, nullable=True),
     Column('date', String, nullable=True, default=str(datetime.utcnow())),
 )

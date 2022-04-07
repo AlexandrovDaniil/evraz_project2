@@ -14,7 +14,7 @@ class IssuesRepo(BaseRepository, interfaces.IssuesRepo):
 
     def add_action(self, action: Action):
         query = ACTION.insert().values(obj_type=action.obj_type, id_user=action.id_user, id_book=action.id_book,
-                                       action=action.action, date=str(datetime.utcnow()))
+                                       action=action.action, book_title=action.book_title, date=str(datetime.utcnow()))
         self.session.execute(query)
 
     def add_action_book(self, action: Action):
@@ -27,6 +27,10 @@ class IssuesRepo(BaseRepository, interfaces.IssuesRepo):
 
     def get_all(self):
         query = select(ACTION)
+        return self.session.execute(query).fetchall()
+
+    def get_all_by_user(self, user_id: int):
+        query = select(ACTION).where(ACTION.c.id_user == user_id)
         return self.session.execute(query).fetchall()
 
     def get_user_action(self):
