@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from issue.application.dataclasses import Action
+from .dataclasses import Action
 
 
 class IssuesRepo(ABC):
