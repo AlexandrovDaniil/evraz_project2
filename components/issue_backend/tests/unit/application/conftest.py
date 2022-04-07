@@ -10,7 +10,8 @@ def action_user():
         action='create',
         obj_type='user',
         id_user=1,
-        id=1
+        id=1,
+        date=None
     )
 
 
@@ -20,7 +21,8 @@ def action_book():
         action='create',
         obj_type='book',
         id_book=1,
-        id=2
+        id=2,
+        date=None
     )
 
 
