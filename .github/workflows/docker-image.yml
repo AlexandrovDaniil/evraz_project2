@@ -23,5 +23,10 @@ jobs:
         pip install pytest
         
     - name: User tests
-#      run: docker-compose run user_backend /tests/unit/application/services/test_user.py
       run: docker-compose -f components/docker-compose.yml run user_backend py.test -v
+
+    - name: Book tests
+      run: docker-compose -f components/docker-compose.yml run book_backend py.test -v
+
+    - name: Issue tests
+      run: docker-compose -f components/docker-compose.yml run issue_backend py.test -v
