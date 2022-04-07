@@ -23,5 +23,5 @@ jobs:
         pip install pytest
         
     - name: User tests
-
-      run: docker-compose run user_backend  python-3 -m test_user.py
+#      run: pytest components/user_backend/tests/unit/application/services/test_user.py
+      run: docker-compose run user_backend python-3 -m test_user.py
