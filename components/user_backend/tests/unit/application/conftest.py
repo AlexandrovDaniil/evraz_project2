@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import pytest
 # from user_backend.user.application import dataclasses, interfaces
-from user.application import dataclasses, interfaces
+from components.user_backend.user.application import dataclasses, interfaces
 
 
 @pytest.fixture(scope='function')
