@@ -4,7 +4,7 @@ import pytest
 from attr import asdict
 from user.application.services import Users
 from pydantic import ValidationError
-from user.application.errors import NoUserLogin, WrongUserPassword
+from user.application.errors import WrongUserPassword
 
 
 @pytest.fixture(scope='function')
@@ -35,7 +35,7 @@ def test_get_by_login(service_user):
     assert asdict(user) == data_user
 
 
-def test_get_by_login_wrong_login(service_user):
+def test_get_by_login_wrong_password(service_user):
     with pytest.raises(WrongUserPassword):
         service_user.login_user('test', 'test111')
 

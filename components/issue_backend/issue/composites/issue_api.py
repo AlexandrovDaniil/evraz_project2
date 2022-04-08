@@ -22,9 +22,6 @@ class DB:
     context = TransactionContext(bind=engine)
     Session = sessionmaker(bind=engine)
     issues_repo = database.repositories.IssuesRepo(context=context)
-    # chats_repo = database.repositories.ChatsRepo(context=context)
-    # chat_members_repo = database.repositories.ChatsMembersRepo(context=context)
-    # chat_messages_repo = database.repositories.ChatsMessagesRepo(context=context)
 
 
 class Application:

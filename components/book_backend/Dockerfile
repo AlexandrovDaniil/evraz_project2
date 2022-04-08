@@ -5,9 +5,6 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-RUN pip install gunicorn
-RUN pip install psycopg2-binary==2.9.2
-
 COPY ./setup.cfg .
 COPY ./setup.py .
 RUN pip install --upgrade -e '.[dev]'

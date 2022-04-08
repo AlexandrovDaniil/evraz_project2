@@ -87,7 +87,5 @@ services:
       - book_backend
       - issue_backend
 
-
-
 volumes:
   rabbitmq_data:
